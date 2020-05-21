@@ -1,0 +1,36 @@
+.pageination-wrapper {
+    margin-top: 50px;
+    overflow: hidden;
+}
+.pageination-wrapper button {
+    color: rgb(255, 255, 255);
+    border: none;
+    background-color: rgb(194, 214, 233);
+    padding: 3px 10px;
+    outline: none;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0 20px;
+}
+.pageination-wrapper span {
+    margin: 0 20px;
+    color: rgb(211, 211, 211);
+    display: inline-block;
+    width: 20px;
+    cursor: pointer;
+}
+.pageination-wrapper span.active {
+    margin: 0 20px;
+    color: rgb(70, 106, 226);
+    display: inline-block;
+    width: 20px;
+}
+.pageination-wrapper button:active {
+    background-color: rgb(155, 193, 228);
+}
+.pageination-wrapper div {
+    display: inline-block;
+    margin-left: 20px;
+    letter-spacing: 2px;
+    color: rgb(102, 102, 102);
+}

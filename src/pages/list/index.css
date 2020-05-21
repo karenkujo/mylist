@@ -1,0 +1,29 @@
+.list-wrapper {
+    margin-top: 30px;
+    overflow: hidden;
+    height: 480px;
+}
+.list-wrapper .list-item {
+    margin: 0 120px;
+    margin-bottom: 20px;
+    display: flex;
+    
+}
+.list-wrapper .list-item .name {
+    font-size: 16px;
+    color: rgb(66, 66, 66);
+    flex: 1;
+}
+.list-wrapper .list-item .age {
+    font-size: 16px;
+    color: rgb(66, 66, 66);
+    flex: 1;
+}
+.list-wrapper .list-item button {
+    padding: 3px 10px;
+    font-size: 14px;
+    margin: 0 130px;
+    background-color: rgb(181, 201, 218);
+    outline: none;
+    cursor: pointer;
+}

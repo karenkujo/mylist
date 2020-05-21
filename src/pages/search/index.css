@@ -1,0 +1,24 @@
+.search-wrapper {
+    margin: 40px 0;
+}
+.search-wrapper input {
+    outline: none;
+    width: 300px;
+    padding: 3px;
+    font-size: 14px;
+    color: rgb(100, 100, 100);
+}
+.search-wrapper button {
+    outline: none;
+    font-size: 14px;
+    line-height: 20px;
+    border: none;
+    color: #fff;
+    padding: 3px 15px;
+    margin-left: 5px;
+    background-color: rgb(151, 193, 233);
+    cursor: pointer;
+}
+.search-wrapper button:active {
+    background-color: rgb(169, 170, 170);
+}
