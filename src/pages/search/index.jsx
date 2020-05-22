@@ -19,7 +19,7 @@ class Search extends Component {
         return (
             <div className="search-wrapper">
                 <input onChange={this.onChangeHandle} type="text"/>
-                <button onClick={() => this.props.search(this.state.query)}>搜索</button>
+                <button onClick={this.props.search.bind(null, this.state.query)}>搜索</button>
             </div>
         );
     }

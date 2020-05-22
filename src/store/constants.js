@@ -1,0 +1,2 @@
+export const GET_PEOPLE_LIST = 'GET_PEOPLE_LIST'
+export const SELECT_PAGE = 'SELECT_PAGE'
