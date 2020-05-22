@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import './index.css';
-import Header from '../header';
-import Pagination from '../pagination';
-import Search from '../search';
-import List from '../list';
-import Dialog from '../dialog';
-import * as actions from '../../store/action';
+import Header from '@/pages/header';
+import Pagination from '@/pages/pagination';
+import Search from '@/pages/search';
+import List from '@/pages/list';
+import Dialog from '@/pages/dialog';
+import * as actions from '@/store/action';
 import { connect } from 'react-redux';
 
 function PeopleList(props) {
@@ -28,6 +28,7 @@ function PeopleList(props) {
     useEffect(() => {
         getPeopleList();
     }, []);
+
     return (
         <div className="peopleList-wrapper">
             <Header />
@@ -67,7 +68,10 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
     getPeopleList() {
-        actions.getPeopleList(dispatch);
+        let action = actions.getPeopleList();
+        if (action) {
+            dispatch(action);
+        }
     },
     selectPage(mode, curPage) {
         const action = actions.selectPage(mode, curPage);

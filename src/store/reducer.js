@@ -5,7 +5,7 @@ import {
     EDIT_LIST,
     CHANGE_AGE,
     CLICK_MASK,
-} from '../store/constants';
+} from '@/store/constants';
 
 const defaultState = {
     peopleList: [], // 总列表

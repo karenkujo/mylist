@@ -1,4 +1,4 @@
-import * as services from '../services/peopleList';
+import * as services from '@/services/peopleList';
 import {
     SELECT_PAGE,
     SEARCH_NAME,
@@ -7,8 +7,11 @@ import {
     CLICK_MASK,
 } from './constants';
 
-export const getPeopleList = (dispatch) => {
-    services.getPeopleList(dispatch);
+export const getPeopleList = () => {
+    let action = services.getPeopleList();
+    if (action) {
+        return action;
+    }
 };
 
 export const selectPage = (mode, curPage) => {

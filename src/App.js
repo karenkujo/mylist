@@ -1,5 +1,5 @@
 import React from 'react';
-import PeopleList from './pages/peopleList';
+import PeopleList from '@/pages/peopleList';
 import './App.css';
 
 function App() {
