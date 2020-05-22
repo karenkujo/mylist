@@ -1,20 +1,25 @@
-import axios from 'axios'
-import store from '../store/index'
-import { GET_PEOPLE_LIST } from '../store/constants'
+import axios from 'axios';
+import store from '../store/index';
+import { GET_PEOPLE_LIST } from '../store/constants';
 
-const { getState } = store
+const { getState } = store;
 
 export const getPeopleList = (dispatch) => {
-    axios.get('/people.json').then(res => {
+    axios.get('/people.json').then((res) => {
         if (res.status === 200) {
             if (res.data && res.data.data) {
-                let peopleList = res.data.data
-                let currentList = res.data.data
-                let currentPageList = currentList.slice(getState().page * getState().offset, (getState().page + 1) * getState().offset)
-                let maxPage = Math.floor(currentList.length / getState().offset)
-                let paginationList = []
+                let peopleList = res.data.data;
+                let currentList = res.data.data;
+                let currentPageList = currentList.slice(
+                    getState().page * getState().offset,
+                    (getState().page + 1) * getState().offset
+                );
+                let maxPage = Math.floor(
+                    currentList.length / getState().offset
+                );
+                let paginationList = [];
                 for (let i = 0; i < maxPage + 1; i++) {
-                    paginationList.push(i + 1)
+                    paginationList.push(i + 1);
                 }
                 dispatch({
                     type: GET_PEOPLE_LIST,
@@ -22,110 +27,114 @@ export const getPeopleList = (dispatch) => {
                     currentList,
                     currentPageList,
                     maxPage,
-                    paginationList
-                })
+                    paginationList,
+                });
             } else {
-                throw new Error('网络错误')
+                throw new Error('网络错误');
             }
         }
-    })
-}
+    });
+};
 
 export const selectPage = (mode, curPage) => {
-    let page = 0
-    let currentPageList = []
+    let page = 0;
+    let currentPageList = [];
     if (mode === 'back') {
         if (getState().page > 0) {
-            page = getState().page - 1
-            currentPageList = showCurrentPageList(getState().currentList, page)
+            page = getState().page - 1;
+            currentPageList = showCurrentPageList(getState().currentList, page);
             return {
                 page,
-                currentPageList
-            }
+                currentPageList,
+            };
         }
     } else if (mode === 'next') {
         if (getState().page < getState().maxPage) {
-            page = getState().page + 1
-            currentPageList = showCurrentPageList(getState().currentList, page)
+            page = getState().page + 1;
+            currentPageList = showCurrentPageList(getState().currentList, page);
             return {
                 page,
-                currentPageList
-            }
+                currentPageList,
+            };
         }
     } else if (mode === 'skip') {
-        page = curPage
-        currentPageList = showCurrentPageList(getState().currentList, page)
+        page = curPage;
+        currentPageList = showCurrentPageList(getState().currentList, page);
         return {
             page,
-            currentPageList
-        }
+            currentPageList,
+        };
     }
-}
+};
 
 export const search = (query) => {
-    let currentList = getState().currentList
-    let page = 0
+    console.log(query)
+    let currentList = getState().currentList;
+    let page = 0;
     if (query === '') {
-        currentList = getState().peopleList
+        currentList = getState().peopleList;
     } else {
-        currentList = getState().peopleList.filter(item => {
-            return item.name.indexOf(query) > -1
-        })
+        currentList = getState().peopleList.filter((item) => {
+            return item.name.indexOf(query) > -1;
+        });
     }
-    let currentPageList = showCurrentPageList(currentList, page)
-    let { maxPage, paginationList } = setPaginationList(currentList)
+    let currentPageList = showCurrentPageList(currentList, page);
+    let { maxPage, paginationList } = setPaginationList(currentList);
     return {
         currentList,
         page,
         currentPageList,
         maxPage,
-        paginationList
-    }
-}
+        paginationList,
+    };
+};
 
 export const onClickEdit = (id) => {
-    let editId = id
-    let showDialog = true
+    let editId = id;
+    let showDialog = true;
     return {
         editId,
-        showDialog
-    }
-}
+        showDialog,
+    };
+};
 
 export const onChangeAge = (age) => {
-    let peopleList = getState().peopleList
-    let showDialog = false
-    peopleList.forEach(item => {
+    let peopleList = getState().peopleList;
+    let showDialog = false;
+    peopleList.forEach((item) => {
         if (item.id === getState().editId) {
-            item.age = age
+            item.age = age;
         }
-    })
+    });
     return {
         peopleList,
-        showDialog
-    }
-}
+        showDialog,
+    };
+};
 
 export const onClickMask = () => {
-    let showDialog = false
+    let showDialog = false;
     return {
-        showDialog
-    }
-}
+        showDialog,
+    };
+};
 
 const showCurrentPageList = (currentList, page) => {
-    let currentPageList = currentList.slice(page * getState().offset, (page + 1) * getState().offset)
-    return currentPageList
-}
+    let currentPageList = currentList.slice(
+        page * getState().offset,
+        (page + 1) * getState().offset
+    );
+    return currentPageList;
+};
 
 const setPaginationList = (currentList) => {
-    let maxPage = Math.floor(currentList.length / getState().offset)
-    let paginationList = []
+    let maxPage = Math.floor(currentList.length / getState().offset);
+    let paginationList = [];
     for (let i = 0; i < maxPage + 1; i++) {
-        paginationList.push(i + 1)
+        paginationList.push(i + 1);
     }
     return {
         maxPage,
-        paginationList
-    }
-}
+        paginationList,
+    };
+};

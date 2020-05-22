@@ -1,28 +1,21 @@
-import React, { Component } from 'react';
-import './index.css'
+import React, { useState } from 'react';
+import './index.css';
 
-class Search extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            query: ''
-        }
-    }
-    // 输入框值发生变化
-    onChangeHandle = (e) => {
-        this.setState({ query: e.target.value })
+function Search(props) {
+    let [query, setQuery] = useState('');
+
+    const onChangeHandle = (e) => {
+        setQuery(e.target.value);
         if (e.target.value === '') {
-            this.props.search('')
+            props.search('');
         }
-    }
-    render() {
-        return (
-            <div className="search-wrapper">
-                <input onChange={this.onChangeHandle} type="text"/>
-                <button onClick={this.props.search.bind(null, this.state.query)}>搜索</button>
-            </div>
-        );
-    }
+    };
+    return (
+        <div className="search-wrapper">
+            <input onChange={onChangeHandle} type="text" />
+            <button onClick={props.search.bind(null, query)}>搜索</button>
+        </div>
+    );
 }
 
 export default Search;

@@ -1,4 +1,4 @@
-.Dialog-warpper {
+.dialog-wrapper {
     width: 400px;
     display: inline-block;
     height: 260px;
@@ -14,22 +14,22 @@
     box-sizing: border-box;
     padding-left: 120px;
 }
-.Dialog-warpper div {
+.dialog-wrapper div {
     margin: 40px 0;
 }
-.Dialog-warpper .name {
+.dialog-wrapper .name {
     color: rgb(116, 116, 116);
 }
-.Dialog-warpper .age {
+.dialog-wrapper .age {
     color: rgb(116, 116, 116);
 }
-.Dialog-warpper .age input {
+.dialog-wrapper .age input {
     width: 70px;
     outline: none;
     font-size: 14px;
     color: rgb(116, 116, 116);
 }
-.Dialog-warpper button {
+.dialog-wrapper button {
     outline: none;
     border: none;
     font-size: 16px;
@@ -39,7 +39,7 @@
     margin-top: 20px;
     cursor: pointer;
 }
-.Dialog-warpper button:active {
+.dialog-wrapper button:active {
     background-color: rgba(99, 118, 196, .8);
 }
 input::-webkit-outer-spin-button,

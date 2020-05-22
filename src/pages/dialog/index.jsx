@@ -1,43 +1,40 @@
-import React from 'react';
-import './index.css'
-import Mask from '../mask'
+import React, { useState, useEffect } from 'react';
+import './index.css';
+import Mask from '../mask';
 
-class Dialog extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            name: '',
-            age: 0
+function Dialog (props) {
+    let [ name, setName ] = useState('')
+    let [ age, setAge ] = useState(0)
+    let { list, id } = props
+
+    useEffect(() => {
+        let currentItem = list.find(item => item.id === id)
+        if (currentItem) {
+            setName(currentItem.name)
+            setAge(currentItem.age)
         }
+    }, [])
+
+    const onChangeHandle = (e) => {
+        setAge(e.target.value)
     }
-    componentDidMount() {
-        let currentItem = this.props.list.find(item => item.id === this.props.id)
-        this.setState({
-            name: currentItem.name,
-            age: currentItem.age
-        })
-    }
-    onChangeHandle = (e) => {
-        this.setState({ age: e.target.value })
-    }
-    render() {
         return (
             <div>
-                <Mask onClickMask={this.props.onClickMask} />
-                <div className="Dialog-warpper">
+                <Mask onClickMask={props.onClickMask} />
+                <div className="dialog-wrapper">
                     <div className="name">
                         <span>姓名：</span>
-                        <span>{this.state.name}</span>
+                        <span>{name}</span>
                     </div>
                     <div className="age">
                         <span>年龄：</span>
-                        <input value={this.state.age} type="number" onChange={this.onChangeHandle} />
+                        <input value={age} type="number" onChange={onChangeHandle} />
                     </div>
-                    <button onClick={this.props.onChangeAge.bind(null, this.state.age)}>确定</button>
+                    <button onClick={props.onChangeAge.bind(null, age)}>确定</button>
                 </div>
             </div>
         );
-    }
+    
 }
 
 export default Dialog;
