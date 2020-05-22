@@ -5,7 +5,6 @@ import Pagination from '../pagination'
 import Search from '../search'
 import List from '../list'
 import Dialog from '../dialog'
-import Mask from '../mask'
 import * as actions from '../../store/action'
 import { connect } from 'react-redux'
 
@@ -98,29 +97,29 @@ class PeopleList extends Component {
         const { 
             peopleList, 
             page, 
-            offset, 
             currentPageList,
             maxPage,
-            currentList,
             showDialog,
             editId,
             paginationList,
             selectPage,
-            search
+            search,
+            onClickEdit,
+            onChangeAge,
+            onClickMask
         } = this.props
         return (
             <div className="peopleList-wrapper">
                 <Header />
                 <Search search={search} />
-                <List list={currentPageList} onClickEdit={this.onClickEdit} />
+                <List list={currentPageList} onClickEdit={onClickEdit} />
                  <Pagination 
                     paginationList={paginationList} 
                     page={page} 
                     maxPage={maxPage + 1}
                     selectPage={selectPage}
                     />
-            {/*   {this.state.showDialog ? <Mask onClickMask={this.onClickMask} /> : ''}
-                {this.state.showDialog ? <Dialog id={this.state.editId} list={this.state.peopleList} onClickAge={this.onClickAge} /> : ''}   */}   
+                {showDialog ? <Dialog id={editId} list={peopleList} onChangeAge={onChangeAge} onClickMask={onClickMask} /> : ''}  
             </div>
         );
     }
@@ -139,17 +138,38 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-    getPeopleList () {
+    getPeopleList() {
         actions.getPeopleList(dispatch)
     },
-    selectPage (mode, curPage) {
-        let action = actions.selectPage(mode, curPage)
+    selectPage(mode, curPage) {
+        const action = actions.selectPage(mode, curPage)
         if (action) {
             dispatch(action)
         }
     },
-    search (query) {
-        let action = actions.search(query)
+    search(query) {
+        const action = actions.search(query)
+        if (action) {
+            dispatch(action)
+        }
+    },
+    onClickEdit(id) {
+        const action = actions.onClickEdit(id)
+        if (action) {
+            dispatch(action)
+        }
+    },
+    onChangeAge(age) {
+        const action = actions.onChangeAge(age)
+        if (action) {
+            dispatch(action)
+        }
+    },
+    onClickMask() {
+        const action = actions.onClickMask()
+        if (action) {
+            dispatch(action)
+        }
     }
 })
 

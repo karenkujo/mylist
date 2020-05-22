@@ -8,7 +8,7 @@ function List(props) {
                 <div key={item.id} className="list-item">
                     <span className="name">{item.name}</span>
                     <span className="age">{item.age}</span>
-                    <button onClick={() => props.onClickEdit(item.id)}>编辑</button>
+                    <button onClick={props.onClickEdit.bind(null, item.id)}>编辑</button>
                 </div>
             ))}
         </div>

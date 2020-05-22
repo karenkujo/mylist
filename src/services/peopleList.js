@@ -32,7 +32,6 @@ export const getPeopleList = (dispatch) => {
 }
 
 export const selectPage = (mode, curPage) => {
-    console.log(mode, curPage)
     let page = 0
     let currentPageList = []
     if (mode === 'back') {
@@ -64,10 +63,69 @@ export const selectPage = (mode, curPage) => {
 }
 
 export const search = (query) => {
-    console.log(query)
+    let currentList = getState().currentList
+    let page = 0
+    if (query === '') {
+        currentList = getState().peopleList
+    } else {
+        currentList = getState().peopleList.filter(item => {
+            return item.name.indexOf(query) > -1
+        })
+    }
+    let currentPageList = showCurrentPageList(currentList, page)
+    let { maxPage, paginationList } = setPaginationList(currentList)
+    return {
+        currentList,
+        page,
+        currentPageList,
+        maxPage,
+        paginationList
+    }
 }
 
-export const showCurrentPageList = (currentList, page) => {
+export const onClickEdit = (id) => {
+    let editId = id
+    let showDialog = true
+    return {
+        editId,
+        showDialog
+    }
+}
+
+export const onChangeAge = (age) => {
+    let peopleList = getState().peopleList
+    let showDialog = false
+    peopleList.forEach(item => {
+        if (item.id === getState().editId) {
+            item.age = age
+        }
+    })
+    return {
+        peopleList,
+        showDialog
+    }
+}
+
+export const onClickMask = () => {
+    let showDialog = false
+    return {
+        showDialog
+    }
+}
+
+const showCurrentPageList = (currentList, page) => {
     let currentPageList = currentList.slice(page * getState().offset, (page + 1) * getState().offset)
     return currentPageList
+}
+
+const setPaginationList = (currentList) => {
+    let maxPage = Math.floor(currentList.length / getState().offset)
+    let paginationList = []
+    for (let i = 0; i < maxPage + 1; i++) {
+        paginationList.push(i + 1)
+    }
+    return {
+        maxPage,
+        paginationList
+    }
 }

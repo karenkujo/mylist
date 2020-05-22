@@ -1,4 +1,11 @@
-import { GET_PEOPLE_LIST, SELECT_PAGE } from '../store/constants'
+import { 
+    GET_PEOPLE_LIST, 
+    SELECT_PAGE, 
+    SEARCH_NAME,
+    EDIT_LIST,
+    CHANGE_AGE,
+    CLICK_MASK
+} from '../store/constants'
 
 const defaultState = {
     peopleList: [], // 总列表
@@ -28,6 +35,32 @@ export default (state = defaultState, action) => {
                 ...state,
                 page: action.page,
                 currentPageList: action.currentPageList
+            }
+        case SEARCH_NAME:
+            return {
+                ...state,
+                currentList: action.currentList,
+                page: action.page,
+                currentPageList: action.currentPageList,
+                maxPage: action.maxPage,
+                paginationList: action.paginationList
+            }
+        case EDIT_LIST:
+            return {
+                ...state,
+                editId: action.editId,
+                showDialog: action.showDialog
+            }
+        case CHANGE_AGE:
+            return {
+                ...state,
+                peopleList: action.peopleList,
+                showDialog: action.showDialog
+            }
+        case CLICK_MASK:
+            return {
+                ...state,
+                showDialog: action.showDialog
             }
         default:
             return state
