@@ -5,15 +5,12 @@ import Pagination from './pagination';
 import Search from './search';
 import List from './list';
 import Dialog from '@/component/dialog';
-import * as actions from '@/store/action';
+import * as actions from './store/action';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 
 function PeopleList(props) {
-    const {
-        showDialog,
-        getPeopleList,
-    } = props;
+    const { showDialog, getPeopleList } = props;
 
     useEffect(() => {
         getPeopleList();
@@ -31,11 +28,11 @@ function PeopleList(props) {
 }
 
 const mapState = (state) => ({
-    showDialog: state.showDialog
+    showDialog: state.peopleListReducer.showDialog,
 });
 
 const mapDispatch = (dispatch) => {
-    return bindActionCreators(actions, dispatch)
+    return bindActionCreators(actions, dispatch);
 };
 
 export default connect(mapState, mapDispatch)(PeopleList);

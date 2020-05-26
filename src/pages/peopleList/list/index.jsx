@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import * as actions from '@/store/action';
+import * as actions from '@/pages/peopleList/store/action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -27,9 +27,9 @@ function List(props) {
 }
 
 const mapState = (state) => ({
-    currentList: state.currentList,
-    page: state.page,
-    offset: state.offset,
+    currentList: state.peopleListReducer.currentList,
+    page: state.peopleListReducer.page,
+    offset: state.peopleListReducer.offset,
 });
 const mapDispatch = (dispatch) => {
     return bindActionCreators(actions, dispatch);

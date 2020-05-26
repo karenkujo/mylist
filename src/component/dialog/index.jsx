@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import Mask from './mask';
-import * as actions from '@/store/action';
-import { bindActionCreators } from 'redux'
+import * as actions from '@/pages/peopleList/store/action';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 function Dialog(props) {
     let [currentPeople, setCurrentPeople] = useState({
         name: '',
-        age: 0
-    })
+        age: 0,
+    });
     let { list, id, onChangeAge } = props;
 
     useEffect(() => {
         let currentItem = list.find((item) => item.id === id);
         if (currentItem) {
-            setCurrentPeople(currentItem)
+            setCurrentPeople(currentItem);
         } else {
             alert('您要编辑的条目不存在');
         }
@@ -24,7 +24,7 @@ function Dialog(props) {
     const onChangeHandle = (e) => {
         setCurrentPeople({
             ...currentPeople,
-            age: e.target.value
+            age: e.target.value,
         });
     };
     return (
@@ -52,11 +52,11 @@ function Dialog(props) {
 }
 
 const mapState = (state) => ({
-    list: state.peopleList,
-    id: state.editId
-})
+    list: state.peopleListReducer.peopleList,
+    id: state.peopleListReducer.editId,
+});
 const mapDispatch = (dispatch) => {
-    return bindActionCreators(actions, dispatch)
-}
+    return bindActionCreators(actions, dispatch);
+};
 
 export default connect(mapState, mapDispatch)(Dialog);
