@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './index.css';
+import * as actions from '@/store/action';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
 
 function Search(props) {
     let [query, setQuery] = useState('');
@@ -18,4 +21,8 @@ function Search(props) {
     );
 }
 
-export default Search;
+const mapDispatch = (dispatch) => {
+    return bindActionCreators(actions, dispatch)
+}
+
+export default connect(null, mapDispatch)(Search);

@@ -1,28 +1,18 @@
 import React, { useEffect } from 'react';
 import './index.css';
-import Header from '@/pages/header';
-import Pagination from '@/pages/pagination';
-import Search from '@/pages/search';
-import List from '@/pages/list';
-import Dialog from '@/pages/dialog';
+import Header from './header';
+import Pagination from './pagination';
+import Search from './search';
+import List from './list';
+import Dialog from '@/component/dialog';
 import * as actions from '@/store/action';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
 function PeopleList(props) {
     const {
-        peopleList,
-        page,
-        currentPageList,
-        maxPage,
         showDialog,
-        editId,
-        paginationList,
         getPeopleList,
-        selectPage,
-        search,
-        onClickEdit,
-        onChangeAge,
-        onClickMask,
     } = props;
 
     useEffect(() => {
@@ -32,77 +22,20 @@ function PeopleList(props) {
     return (
         <div className="peopleList-wrapper">
             <Header />
-            <Search search={search} />
-            <List list={currentPageList} onClickEdit={onClickEdit} />
-            <Pagination
-                paginationList={paginationList}
-                page={page}
-                maxPage={maxPage + 1}
-                selectPage={selectPage}
-            />
-            {showDialog ? (
-                <Dialog
-                    id={editId}
-                    list={peopleList}
-                    onChangeAge={onChangeAge}
-                    onClickMask={onClickMask}
-                />
-            ) : (
-                ''
-            )}
+            <Search />
+            <List />
+            <Pagination />
+            {showDialog ? <Dialog /> : ''}
         </div>
     );
 }
 
 const mapState = (state) => ({
-    peopleList: state.peopleList,
-    page: state.page,
-    offset: state.offset,
-    currentPageList: state.currentPageList,
-    maxPage: state.maxPage,
-    currentList: state.currentList,
-    showDialog: state.showDialog,
-    editId: state.editId,
-    paginationList: state.paginationList,
+    showDialog: state.showDialog
 });
 
-const mapDispatch = (dispatch) => ({
-    getPeopleList() {
-        let action = actions.getPeopleList();
-        if (action) {
-            dispatch(action);
-        }
-    },
-    selectPage(mode, curPage) {
-        const action = actions.selectPage(mode, curPage);
-        if (action) {
-            dispatch(action);
-        }
-    },
-    search(query) {
-        const action = actions.search(query);
-        if (action) {
-            dispatch(action);
-        }
-    },
-    onClickEdit(id) {
-        const action = actions.onClickEdit(id);
-        if (action) {
-            dispatch(action);
-        }
-    },
-    onChangeAge(age) {
-        const action = actions.onChangeAge(age);
-        if (action) {
-            dispatch(action);
-        }
-    },
-    onClickMask() {
-        const action = actions.onClickMask();
-        if (action) {
-            dispatch(action);
-        }
-    },
-});
+const mapDispatch = (dispatch) => {
+    return bindActionCreators(actions, dispatch)
+};
 
 export default connect(mapState, mapDispatch)(PeopleList);
